@@ -94,7 +94,7 @@ void leftAlert(int distance) {
     DFPlayer.playLargeFolder(01, distance+1);
   } 
   if (DFPlayer.available()) {
-    printDetail(DFPlayer.readType(), DFPlayer.read()); //Print the detail message from DFPlayer
+    printDetail(DFPlayer.readType(), DFPlayer.read()); //Print the detail message from DFPlayerS
   }
 }
 
