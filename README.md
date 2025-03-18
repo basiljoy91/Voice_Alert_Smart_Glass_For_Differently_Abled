@@ -1,70 +1,78 @@
-# Talking Smart Glass For Blind
+# Smart glass for differently abled
 
-![Person wearing smart glass](./images/IMG_20180605_092232.jpg)
+## Overview
+The **Blind Assistance Smart Glasses** is an Arduino-based project designed to aid visually impaired individuals by detecting obstacles and providing audio feedback. The device uses ultrasonic sensors to measure distances to nearby objects and plays pre-recorded audio alerts using the DFPlayer Mini module to inform the user about obstacles in their path.
 
-There are multiple smart accessories such as smart glasses, smart watches etc available in the market. But all of them are built for us.
-There is a significant lack of technology to aid the physically challenged. I wanted to build something that is useful for the visually challenged people. So i designed low cost smart glass that can be used to help the visually impaired.
+## Features
+- **Distance Measurement**: Utilizes ultrasonic sensors to detect obstacles at different angles (left, center, right).
+- **Audio Feedback**: Plays audio alerts through the DFPlayer Mini module to notify the user about obstacles.
+- **Motor Control**: Triggers corresponding feedback mechanisms for each detected obstacle.
+- **Adjustable Sensitivity**: Configurable minimum distance thresholds for each direction.
 
-This project uses few Ultrasonic distance sensors, an arduino pro mini, mp3 Player module and some vibration motors.
+## Components Required
+- **Arduino board** (e.g., Arduino Uno, Nano)
+- **Ultrasonic Sensors** (3x HC-SR04)
+- **DFPlayer Mini** MP3 player module
+- **MicroSD card** (with preloaded audio files)
+- **SoftwareSerial library**
+- **NewPing library**
+- Resistors and wiring
+- Speakers or headphones for audio output
+- Breadboard or PCB for assembling
 
-Circuit board used in this project is designed in the form of a spectacle, that can be worn by visually impaired person. Arduino mounted on the spectacle will detect the obstacle with the help of the sensors and notify the user through headphones and vibration motors.
+## Circuit Diagram
+1. **Ultrasonic Sensors**:
+   - Left: Trig pin to D2, Echo pin to D3
+   - Center: Trig pin to D4, Echo pin to D5
+   - Right: Trig pin to D6, Echo pin to D7
+2. **DFPlayer Mini**:
+   - RX to D8, TX to D9
+   - Connect to an external speaker or headphone jack.
+3. **Motor Control** (optional for indicating directions):
+   - Left motor control to A0
+   - Center motor control to A1
+   - Right motor control to A2
 
-![PCB Back ](./images/IMG_20180605_092439.jpg "PCB Back side")
-![PCB Front](./images/IMG_20180605_092352.jpg "PCB Front side")
+## Installation
+1. **Install Arduino IDE**: Download and install from [Arduino's official website](https://www.arduino.cc/en/software).
+2. **Add Required Libraries**:
+   - Install the **NewPing** library from Arduino Library Manager.
+   - Install the **SoftwareSerial** library (built-in with Arduino IDE).
+3. **Connect Components**: Assemble the circuit as per the circuit diagram.
+4. **Load Code**:
+   - Copy the code into an Arduino IDE sketch.
+   - Upload the code to the Arduino board.
 
-## Parts needed
+## How It Works
+- The ultrasonic sensors measure distances to the left, center, and right.
+- If an object is detected within the set minimum distance thresholds, the corresponding audio alert is triggered.
+- The DFPlayer Mini plays an audio file based on the obstacle's distance and direction.
+- Motors or LEDs can be triggered as additional feedback mechanisms.
 
-* 1 * Arduino pro mini 5v 16Mhz (Any version of arduino like nano or uno cane be used, but pro mini is easier to mount on the spectacles).
-* 3 * HC SR04 Ultrasonic distance sensor.
-* 1 * DF Player mini.
-* 3 * Vibration motors.
-* 3.5mm audio jack.
-* 2 * Slide switches.
-* 1 * SD card
+## Configuration
+- **Thresholds**: Adjust the `minLeftDistance`, `minCenterDistance`, and `minRightDistance` variables in the code to modify the sensitivity.
+- **Audio Files**: Ensure that the microSD card in the DFPlayer Mini contains the audio files organized as required (e.g., folders for left, center, and right alerts).
 
-### Optional
+## Usage
+1. **Power the Arduino**: Connect the Arduino to a power source (USB or battery).
+2. **Listen for Alerts**: The device will automatically begin scanning and providing audio feedback for obstacles.
+3. **Monitor Serial Output**: Open the Serial Monitor (9600 baud rate) for debugging information.
 
-* FTDI Breakout cable (only if you are using the pro mini)
-* My custom PCB  from [jlcpcb.com](https://jlcpcb.com/quote/eda?eadLink=2&uuid=c2ed7d40916740bd957b6fa516fbd572) or [pcbway.com](https://www.pcbway.com/project/shareproject/Talking_Smart_Glass_For_Blind.html)
-* 3W Speaker
+## Troubleshooting
+- **No Audio Output**: Verify the connections to the DFPlayer Mini and ensure the microSD card is correctly inserted with audio files.
+- **Incorrect Distance Measurement**: Check sensor connections and confirm there is no interference between the ultrasonic sensors.
+- **Serial Monitor Errors**: Ensure all libraries are properly installed and the code is uploaded without errors.
 
-## The Circuit Diagram
+## Future Improvements
+- **Bluetooth Connectivity**: Integrate Bluetooth for remote control or smartphone alerts.
+- **Battery Optimization**: Implement power-saving features for extended use.
+- **Voice Commands**: Add functionality for voice-based user interactions.
 
-![Circuit Diagram](./images/circuit_diagram.png "Circuit Diagram")
+## License
+This project is open-source and distributed under the MIT License. Contributions and modifications are welcome.
 
-## Flash the pro micro
+## Acknowledgments
+- **Arduino** community for extensive documentation and support.
+- Open-source contributors for libraries and examples.
 
-* Connect arduino pro mini to the computer using FTDI cable.
-* Select proper COM port.
-* Select 'arduino pro or pro mini'.
-* Click upload
-> Make sure to flash arduino before soldering it to pcb. One all the components are soldered, it will be bit harder to connect the programming header.
 
-## Assembling the PCB
-
-* Solder the components like Arduino, DF Player, Audio jack, Slide Switches to the PCB first.
-
-* We can't directly solder the HC-SR04 module available from market. some modification need to be done.
-
-![Unmodified HC-SR04](./images/ultrasonic_1.jpg "Unmodified HC-SR04")
-
-* Straighten the male header using a plier or de-solder the 90&deg; and solder normal headers.
-
-![modified HC-SR04](./images/ultrasonic_2.jpg "modified HC-SR04")
-
-* Add electrical tape to tha back of HC-SR04 to avoid short circuit.
-
-* Insert HC-SR04 to designated solder pads.
- hold the left and right HC-SR04 at an angle and apply solder.
-
-![solder HC-SR04](./images/ultrasonic_3.jpg "solder HC-SR04 at an angle")
-
-* Solder rest of the components such as power supply cable, slide switches, vibration motors etc.
-
-## Copying audio files to the SD card
-
-Copy content of the [Audio files folder](https://github.com/B45i/Talking-Smart-Glass-For-Blind/tree/master/Audio%20files) to the root of the SD card.
-
-> **Copy folders (01, 02, 03) itself, not its content.**
-
-![Audio files in SD card](./images/audio_files.png "Audio files in SD card")
